@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Thumbnail Downloader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: hotpink; /* Purple */
+      --hover-color: hotpink;
+      --text-light: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: var(--text-light);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    nav {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      color: var(--primary-color);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a.menu {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: var(--hover-color);
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 999;
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 110px;
+    }
+
+    .social-icons a {
+      color: white;
+      margin: 0 10px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    /* Modal on page load */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      max-width: 300px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .modal-content button {
+      background: var(--primary-color);
+      color: white;
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+    }
+
+    .supported-websites {
+      margin-top: 100px;
+    }
+
+    .supported-websites h2 {
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+
+    .icons-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .icon-button {
+      background-color: hotpink;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 16px;
+      width: 140px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+
+    .icon-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+     }
+     .DD {
+       text-align: center;
+       font-size: 18px;
+       
+     }
+     .supported-websites a {
+       margin-bottom: ;
+     }
+  </style>
+</head>
+<body>
+
+
+  <!-- Modal -->
+  <div class="modal" id="welcomeModal">
+    <div class="modal-content">
+      <img src="mpde.png" alt="Logo" />
+      <h2>Welcome!</h2>
+      <p>This site lets you download YouTube thumbnails easily.</p>
+      <button onclick="closeModal()">Got it</button>
+    </div>
+  </div>
+
+  <header>
+    <img src="mpde.png" class="logo-img" alt="Logo" />
+  </header>
+
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="mpde.png" height="24" alt="Logo" />
+    
+    </a>
+    <a href="#" class="menu">Home</a>
+  </nav>
+
+  <div class="container">
+    <h1>Download YouTube Thumbnail</h1>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
+    <select id="quality">
+      <option value="maxresdefault">Max Quality</option>
+      <option value="hqdefault">High Quality</option>
+      <option value="mqdefault">Medium Quality</option>
+      <option value="default">Low Quality</option>
+    </select>
+    <button onclick="downloadThumbnail()">Download</button>
+  </div>
+<div class="supported-websites">
+  <center><h2>Supported websites:</h2>
+  <div class="icons-container">
+    <a href="#" class="icon-button">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Facebook Icon">Reel Download 
+    </a>
+    <a href="#" class="icon-button">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">DP Download 
+    </a>
+    <a href="#" class="icon-button">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter Icon">
+    </a>
+    <a href="#" class="icon-button">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="youtube Icon">Video download 
+    </a>
+  </div>
+</div>
+
+
+  <div class="popup" id="popup"></div>
+
+  <footer>
+    <div>©2025 MP Developing. All rights reserved.</div>
+    <div class="social-icons">
+      <a href="https://youtube.com/@mahipatsuthar-e3h?si=XXXfR_L5BfHgSJH9" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com/mahipat_suthar_09?igsh=aGJjMW04cW10MDA4" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://x.com/mahipat_suthar_?t=IV1_CpB8RKJ3eEjX51nJSA&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function closeModal() {
+      document.getElementById("welcomeModal").style.display = "none";
+    }
+
+    async function downloadThumbnail() {
+      const url = document.getElementById("videoUrl").value.trim();
+      const quality = document.getElementById("quality").value;
+      const videoId = extractVideoID(url);
+      if (!videoId) return showPopup("Invalid YouTube URL");
+
+      const imageUrl = `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+
+      try {
+        const response = await fetch(imageUrl);
+        if (!response.ok) throw new Error("Not found");
+        const blob = await response.blob();
+        const downloadUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `${videoId}_${quality}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(downloadUrl);
+        showPopup("Thumbnail downloaded!");
+      } catch {
+        showPopup("Download failed.");
+      }
+    }
+
+    function extractVideoID(url) {
+      const regExp = /^.*(?:youtu.be\/|v\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]{11}).*/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    function showPopup(message) {
+      const popup = document.getElementById("popup");
+      popup.textContent = message;
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 3000);
+    }
+
+    window.onload = () => {
+      document.getElementById("welcomeModal").style.display = "flex";
+    };
+  </script>
+</body>
+</html>
