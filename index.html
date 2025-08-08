@@ -3,127 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <title>YouTube Thumbnail Downloader</title>
+  <link rel="icon" type="image/png" href="ms.jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --primary-color: hotpink;
-      --hover-color: deeppink;
-      --text-light: #ffffff;
-    }
-
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 0;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
     }
-
-    /* Splash Screen */
-    #splash {
-      background: white;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeOut 2s ease 2.2s forwards;
-    }
-
-    #splash img {
-      width: 100px;
-      height: 100px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-    header {
-      background: var(--primary-color);
-      color: var(--text-light);
-      padding: 15px;
-      text-align: center;
-    }
-
-    .logo-img {
-      height: 40px;
-      vertical-align: middle;
-    }
-
-    nav {
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    nav .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      color: var(--primary-color);
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    nav a.menu {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .container {
-      background: white;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: var(--primary-color);
-      color: var(--text-light);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: var(--hover-color);
-    }
-
     .popup {
       position: fixed;
       bottom: 20px;
@@ -136,176 +33,145 @@
       display: none;
       z-index: 999;
     }
-
-    footer {
-      background: var(--primary-color);
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 110px;
-    }
-
-    .social-icons a {
-      color: white;
-      margin: 0 10px;
-      font-size: 20px;
-      text-decoration: none;
-    }
-
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
+    /* Bars Loader Animation */
+    .bars {
       display: flex;
+      gap: 6px;
       align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 20px;
-      max-width: 300px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .modal-content img {
       height: 60px;
-      margin-bottom: 10px;
+      justify-content: center;
     }
-
-    .modal-content button {
-      background: var(--primary-color);
-      color: white;
-      margin-top: 15px;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
+    .bar {
+      width: 6px;
+      background: #38bdf8;
+      border-radius: 3px;
+      animation: pulse 1s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.1s);
+      transform-origin: center;
     }
-
-    .supported-websites {
-      margin-top: 100px;
-      text-align: center;
+    @keyframes pulse {
+      0%, 100% { height: 10px; }
+      50% { height: 50px; }
     }
-
-    .supported-websites h2 {
-      margin-bottom: 25px;
-      font-size: 18px;
-    }
-
-    .icons-container {
+    .instagram-icon {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      z-index: 1000;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .icon-button {
-      background-color: hotpink;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      display: flex;
       align-items: center;
-      text-decoration: none;
-      font-size: 16px;
-      width: 140px;
-      justify-content: center;
-      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
     }
-
-    .icon-button img {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
+    .instagram-icon:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    .instagram-icon a {
+      color: white;
+      font-size: 28px;
+      text-decoration: none;
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-  <!-- Splash Screen -->
-  <div id="splash">
-    <img src="mp.jpg" alt="Logo" />
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="welcomeModal">
-    <div class="modal-content">
-      <img src="mpde.png" alt="Logo" />
-      <h2>Welcome!</h2>
-      <p>This site lets you download YouTube thumbnails easily.</p>
-      <button onclick="closeModal()">Got it</button>
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm fixed w-full z-10 top-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <span class="text-xl font-bold text-indigo-600">MS<span class="text-gray-800">Developing.</span></span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="text-gray-700 hover:text-indigo-600">Home</a>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <header>
-    <img src="mpde.png" class="logo-img" alt="Logo" />
-  </header>
-
-  <nav>
-    <a href="#" class="nav-logo">
-      <img src="mpde.png" height="24" alt="Logo" />
-    </a>
-    <a href="#" class="menu">Home</a>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Home</a>
+      </div>
+    </div>
   </nav>
 
-  <div class="container">
-    <h1>Download YouTube Thumbnail</h1>
-    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
-    <select id="quality">
+  <!-- Main Section -->
+  <div class="mt-24 max-w-xl mx-auto bg-white p-6 rounded shadow-md text-center">
+    <h1 class="text-xl font-bold mb-4">Download YouTube Thumbnail</h1>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" class="border border-gray-300 p-2 w-full rounded mb-4" />
+    <select id="quality" class="border border-gray-300 p-2 w-full rounded mb-4">
       <option value="maxresdefault">Max Quality</option>
       <option value="hqdefault">High Quality</option>
       <option value="mqdefault">Medium Quality</option>
       <option value="default">Low Quality</option>
     </select>
-    <button onclick="downloadThumbnail()">Download</button>
-  </div>
+    <button onclick="downloadThumbnail()" class="bg-pink-500 text-white px-4 py-2 rounded w-full">Download</button>
 
-  <div class="supported-websites">
-    <h2>Supported websites:</h2>
-    <div class="icons-container">
-      <a href="#" class="icon-button">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Facebook Icon">Reel Download 
-      </a>
-      <a href="#" class="icon-button">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">DP Download 
-      </a>
-      <a href="#" class="icon-button">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter Icon">
-      </a>
-      <a href="#" class="icon-button">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="youtube Icon">Video download 
-      </a>
+    <!-- Loader (hidden by default) -->
+    <div id="loader" class="bars mt-4 hidden">
+      <div class="bar" style="--i:1"></div>
+      <div class="bar" style="--i:2"></div>
+      <div class="bar" style="--i:3"></div>
+      <div class="bar" style="--i:4"></div>
+      <div class="bar" style="--i:5"></div>
+      <div class="bar" style="--i:6"></div>
+      <div class="bar" style="--i:7"></div>
+      <div class="bar" style="--i:8"></div>
+      <div class="bar" style="--i:9"></div>
+      <div class="bar" style="--i:10"></div>
+      <div class="bar" style="--i:11"></div>
     </div>
   </div>
 
+  <!-- Popup -->
   <div class="popup" id="popup"></div>
 
-  <footer>
-    <div>©2025 MP Developing. All rights reserved.</div>
-    <div class="social-icons">
-      <a href="https://youtube.com/@mahipatsuthar-e3h" target="_blank"><i class="fab fa-youtube"></i></a>
-      <a href="https://www.instagram.com/mahipat_suthar_09" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://x.com/mahipat_suthar_" target="_blank"><i class="fab fa-twitter"></i></a>
+  <!-- Instagram Icon -->
+  <div class="instagram-icon">
+    <a href="https://www.instagram.com/mahipat_suthar_09?igsh=aGJjMW04cW10MDA4" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 px-4 mt-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <span class="text-xl font-bold text-indigo-400">MS<span class="text-white">Developing.</span></span>
+          <p class="text-gray-400 mt-2">We use my tool in free.</p>
+        </div>
+        <div class="text-gray-400 text-sm">
+          <p>© 2025 <a href="#" target="_blank">MS Developing.</a></p>
+        </div>
+      </div>
     </div>
   </footer>
 
   <script>
-    function closeModal() {
-      document.getElementById("welcomeModal").style.display = "none";
-    }
-
     async function downloadThumbnail() {
+      const loader = document.getElementById("loader");
+      loader.classList.remove("hidden"); // show loader
+
       const url = document.getElementById("videoUrl").value.trim();
       const quality = document.getElementById("quality").value;
       const videoId = extractVideoID(url);
-      if (!videoId) return showPopup("Invalid YouTube URL");
+      if (!videoId) {
+        loader.classList.add("hidden");
+        return showPopup("Invalid YouTube URL");
+      }
 
       const imageUrl = `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
 
@@ -324,6 +190,8 @@
         showPopup("Thumbnail downloaded!");
       } catch {
         showPopup("Download failed.");
+      } finally {
+        loader.classList.add("hidden"); // hide loader
       }
     }
 
@@ -340,13 +208,10 @@
       setTimeout(() => popup.style.display = "none", 3000);
     }
 
-    window.onload = () => {
-      // Splash will fade out with CSS animation
-      setTimeout(() => {
-        document.getElementById("splash").style.display = "none";
-        document.getElementById("welcomeModal").style.display = "flex";
-      }, 2200);
-    };
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
   </script>
 </body>
 </html>
