@@ -17,164 +17,269 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root{
+      --footer-height: 72px; /* change if you adjust footer padding */
+    }
+    html,body{
+      height:100%;
+    }
     body {
       font-family: 'Inter', sans-serif;
       scroll-behavior: smooth;
+      background: #f3f4f6;
+      margin: 0;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
-    main {
-      flex: 1;
+
+    /* make sure main content doesn't go under fixed footer */
+    .page-wrapper {
+      padding-bottom: var(--footer-height);
+      width: 100%;
     }
+
+    /* Navbar */
+    nav {
+      background: #ffffff;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Popup (center) */
     .popup {
       position: fixed;
-      bottom: 20px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
+      transform: translate(-50%, -50%) scale(0.98);
+      background: #111827;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.4);
       display: none;
-      z-index: 999;
+      z-index: 9999;
+      text-align: center;
+      animation: popupIn 250ms ease;
+      max-width: 90%;
     }
-    /* Bars Loader Animation */
+    @keyframes popupIn {
+      from { opacity: 0; transform: translate(-50%, -55%) scale(0.98); }
+      to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Loader bars */
     .bars {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      height: 60px;
-      justify-content: center;
+      display:flex;
+      gap:6px;
+      align-items:center;
+      height:60px;
+      justify-content:center;
     }
     .bar {
-      width: 6px;
-      background: #38bdf8;
-      border-radius: 3px;
-      animation: pulse 1s ease-in-out infinite;
+      width:6px;
+      background:#38bdf8;
+      border-radius:3px;
+      animation:pulse 1s ease-in-out infinite;
       animation-delay: calc(var(--i) * 0.1s);
-      transform-origin: center;
+      transform-origin:center;
     }
     @keyframes pulse {
-      0%, 100% { height: 10px; }
-      50% { height: 50px; }
+      0%,100%{ height:10px; }
+      50%{ height:50px; }
     }
-    .instagram-icon {
+
+    /* Main container (centered card) */
+    .card {
+      max-width: 520px;
+      margin: 110px auto 24px; /* leave space for fixed navbar */
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(2,6,23,0.06);
+      text-align: center;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .btn-download {
+      display: inline-block;
+      width: 100%;
+      background: #ec4899; /* pink-500 */
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* Fixed footer bottom center */
+    footer.fixed-footer {
       position: fixed;
-      right: 30px;
-      bottom: 30px;
-      z-index: 1000;
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: var(--footer-height);
+      background: #0f172a; /* gray-900 */
       display: flex;
-      justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      justify-content: center;
+      z-index: 30;
+      padding: 12px 16px;
+      box-shadow: 0 -4px 20px rgba(2,6,23,0.12);
     }
-    .instagram-icon:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+
+    footer .footer-inner {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #c7d2fe; /* light indigo-ish */
+      font-size: 14px;
     }
-    .instagram-icon a {
-      color: white;
-      font-size: 28px;
+
+    footer .footer-inner a {
+      color: #a78bfa; /* indigo-300 */
       text-decoration: none;
+      font-weight: 600;
     }
+
+    /* responsive tweaks */
+    @media (min-width: 640px) {
+      footer .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* small helper for spacing below fixed header */
+    .header-spacer { height: 64px; }
   </style>
 </head>
-<body class="bg-gray-100">
+<body>
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow-sm fixed w-full z-10 top-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex items-center">
-          <span class="text-xl font-bold text-indigo-600">MS<span class="text-gray-800">Developing.</span></span>
-        </div>
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="#home" class="text-gray-700 hover:text-indigo-600">Home</a>
-        </div>
-        <div class="md:hidden flex items-center">
-          <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo" style="font-weight:700; font-size:18px; color:#4f46e5;">
+        MS<span style="color:#111827; font-weight:700;">Developing.</span>
       </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Home</a>
+
+      <!-- WhatsApp icon on right (replace number if needed) -->
+      <div>
+        <a href="https://wa.me/916356952788?text=Hello%20MS%20Developing!%20👋" target="_blank"
+           style="color:#16a34a; font-size:22px; text-decoration:none;">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
       </div>
     </div>
   </nav>
 
-  <!-- Main Section -->
-  <main class="mt-24 max-w-xl mx-auto bg-white p-6 rounded shadow-md text-center">
-    <h1 class="text-xl font-bold mb-4">Download YouTube Thumbnail</h1>
-    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" class="border border-gray-300 p-2 w-full rounded mb-4" />
-    <select id="quality" class="border border-gray-300 p-2 w-full rounded mb-4">
-      <option value="maxresdefault">Max Quality</option>
-      <option value="hqdefault">High Quality</option>
-      <option value="mqdefault">Medium Quality</option>
-      <option value="default">Low Quality</option>
-    </select>
-    <button onclick="downloadThumbnail()" class="bg-pink-500 text-white px-4 py-2 rounded w-full">Download</button>
+  <div class="page-wrapper">
+    <div class="header-spacer"></div>
 
-    <!-- Loader (hidden by default) -->
-    <div id="loader" class="bars mt-4 hidden">
-      <div class="bar" style="--i:1"></div>
-      <div class="bar" style="--i:2"></div>
-      <div class="bar" style="--i:3"></div>
-      <div class="bar" style="--i:4"></div>
-      <div class="bar" style="--i:5"></div>
-      <div class="bar" style="--i:6"></div>
-      <div class="bar" style="--i:7"></div>
-      <div class="bar" style="--i:8"></div>
-      <div class="bar" style="--i:9"></div>
-      <div class="bar" style="--i:10"></div>
-      <div class="bar" style="--i:11"></div>
+    <!-- MAIN CARD -->
+    <div class="card">
+      <h1 style="font-size:18px; font-weight:700; margin-bottom:10px;">Download YouTube Thumbnail</h1>
+
+      <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
+      <select id="quality">
+        <option value="maxresdefault">Max Quality</option>
+        <option value="hqdefault">High Quality</option>
+        <option value="mqdefault">Medium Quality</option>
+        <option value="default">Low Quality</option>
+      </select> <br>
+
+     <br> <button class="btn-download" onclick="downloadThumbnail()">Download</button>
+
+      <!-- Loader -->
+      <div id="loader" class="bars" style="margin-top:14px; display:none;">
+        <div class="bar" style="--i:1"></div>
+        <div class="bar" style="--i:2"></div>
+        <div class="bar" style="--i:3"></div>
+        <div class="bar" style="--i:4"></div>
+        <div class="bar" style="--i:5"></div>
+        <div class="bar" style="--i:6"></div>
+        <div class="bar" style="--i:7"></div>
+        <div class="bar" style="--i:8"></div>
+        <div class="bar" style="--i:9"></div>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Popup -->
+  <!-- Center Popup -->
   <div class="popup" id="popup"></div>
 
-  <!-- ✅ Fixed Centered Footer -->
-  <footer class="bg-gray-900 text-white py-8 px-4">
-    <div class="max-w-7xl mx-auto text-center">
-      <div class="flex flex-col items-center justify-center space-y-3">
-        <span class="text-xl font-bold text-indigo-400"><span class="text-white"></span></span>
-        <p class="text-gray-400 text-sm">We use my tool in free.</p>
-        <p class="text-gray-400 text-sm">
-          © 2025 <a href="#" class="text-indigo-400 hover:underline">MS Developing.</a>
-        </p>
+  <!-- FIXED FOOTER (bottom center) -->
+  <footer class="fixed-footer" role="contentinfo" aria-label="Footer">
+    <div class="footer-inner">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-weight:700; color:#c7d2fe;">MS<span style="color:#fff;">Developing.</span></span>
       </div>
+      <div style="color:#cbd5e1;">© 2025 <a href="#" target="_blank">MS Developing.</a></div>
     </div>
   </footer>
 
   <script>
-    async function downloadThumbnail() {
-      const loader = document.getElementById("loader");
-      loader.classList.remove("hidden"); // show loader
+    function showPopup(message) {
+      const popup = document.getElementById('popup');
+      popup.textContent = message;
+      popup.style.display = 'block';
+      // auto hide after 2.5s
+      clearTimeout(popup._hideTimeout);
+      popup._hideTimeout = setTimeout(() => {
+        popup.style.display = 'none';
+      }, 2500);
+    }
 
-      const url = document.getElementById("videoUrl").value.trim();
-      const quality = document.getElementById("quality").value;
-      const videoId = extractVideoID(url);
-      if (!videoId) {
-        loader.classList.add("hidden");
-        return showPopup("Invalid YouTube URL");
+    function extractVideoID(url) {
+      const regExp = /^.*(?:youtu.be\/|v\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]{11}).*/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    async function downloadThumbnail() {
+      const loader = document.getElementById('loader');
+      const url = document.getElementById('videoUrl').value.trim();
+      const quality = document.getElementById('quality').value;
+
+      if (!url) {
+        return showPopup('⚠️ Please enter a YouTube URL first!');
       }
 
-      const imageUrl = `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+      const videoId = extractVideoID(url);
+      if (!videoId) {
+        return showPopup('⚠️ Invalid YouTube URL');
+      }
 
+      loader.style.display = 'flex';
       try {
+        const imageUrl = `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
         const response = await fetch(imageUrl);
-        if (!response.ok) throw new Error("Not found");
+        if (!response.ok) throw new Error('Not found');
         const blob = await response.blob();
         const downloadUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -184,31 +289,13 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(downloadUrl);
-        showPopup("Thumbnail downloaded!");
-      } catch {
-        showPopup("Download failed.");
+        showPopup('✅ Thumbnail downloaded successfully!');
+      } catch (err) {
+        showPopup('❌ Download failed.');
       } finally {
-        loader.classList.add("hidden"); // hide loader
+        loader.style.display = 'none';
       }
     }
-
-    function extractVideoID(url) {
-      const regExp = /^.*(?:youtu.be\/|v\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]{11}).*/;
-      const match = url.match(regExp);
-      return match ? match[1] : null;
-    }
-
-    function showPopup(message) {
-      const popup = document.getElementById("popup");
-      popup.textContent = message;
-      popup.style.display = "block";
-      setTimeout(() => popup.style.display = "none", 3000);
-    }
-
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-button').addEventListener('click', function () {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
   </script>
 </body>
 </html>
