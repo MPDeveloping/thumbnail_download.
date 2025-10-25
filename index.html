@@ -20,6 +20,12 @@
     body {
       font-family: 'Inter', sans-serif;
       scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
     }
     .popup {
       position: fixed;
@@ -108,7 +114,7 @@
   </nav>
 
   <!-- Main Section -->
-  <div class="mt-24 max-w-xl mx-auto bg-white p-6 rounded shadow-md text-center">
+  <main class="mt-24 max-w-xl mx-auto bg-white p-6 rounded shadow-md text-center">
     <h1 class="text-xl font-bold mb-4">Download YouTube Thumbnail</h1>
     <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" class="border border-gray-300 p-2 w-full rounded mb-4" />
     <select id="quality" class="border border-gray-300 p-2 w-full rounded mb-4">
@@ -133,29 +139,20 @@
       <div class="bar" style="--i:10"></div>
       <div class="bar" style="--i:11"></div>
     </div>
-  </div>
+  </main>
 
   <!-- Popup -->
   <div class="popup" id="popup"></div>
 
-  <!-- Instagram Icon -->
-  <div class="instagram-icon">
-    <a href="https://www.instagram.com/mahipat_suthar_09?igsh=aGJjMW04cW10MDA4" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-instagram"></i>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-8 px-4 mt-20">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <span class="text-xl font-bold text-indigo-400">MS<span class="text-white">Developing.</span></span>
-          <p class="text-gray-400 mt-2">We use my tool in free.</p>
-        </div>
-        <div class="text-gray-400 text-sm">
-          <p>© 2025 <a href="#" target="_blank">MS Developing.</a></p>
-        </div>
+  <!-- ✅ Fixed Centered Footer -->
+  <footer class="bg-gray-900 text-white py-8 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex flex-col items-center justify-center space-y-3">
+        <span class="text-xl font-bold text-indigo-400"><span class="text-white"></span></span>
+        <p class="text-gray-400 text-sm">We use my tool in free.</p>
+        <p class="text-gray-400 text-sm">
+          © 2025 <a href="#" class="text-indigo-400 hover:underline">MS Developing.</a>
+        </p>
       </div>
     </div>
   </footer>
